@@ -12,13 +12,18 @@ public class Stone : MonoBehaviour, IHitable
 
     Vector2 startSize;
 
-    [SerializeField] AudioClip hitSound;
-    [SerializeField] AudioClip deathSound;
+    [SerializeField] AudioClip[] hitSounds;
+    [SerializeField] AudioClip[] deathSounds;
 
     float hpBarVisibilityTime;
 
+    private DamageFlash damageFlash;
+    [SerializeField] ParticleSystem hitParticles;
+
     void Start()
     {
+        gameObject.AddComponent<DamageFlash>();
+        damageFlash = GetComponent<DamageFlash>();
         hp = maxhp;
         startSize = hpBarCanvas.transform.GetChild(0).transform.GetChild(0).GetComponent<RectTransform>().sizeDelta;
     }
@@ -43,11 +48,9 @@ public class Stone : MonoBehaviour, IHitable
 
     void TakeDamage(int damage)
     {
-        if (hitSound != null)
-        {
-            EventManager.playSound.Invoke(hitSound);
-        }
+        
 
+        damageFlash.CallDamageFlash();
         hp -= damage;
         hpBarVisibilityTime = 5f;
         hpBarCanvas.SetActive(true);
@@ -56,6 +59,13 @@ public class Stone : MonoBehaviour, IHitable
         if (hp <= 0)
         {
             Die();
+            return;
+        }
+
+        AudioClip hitSound = GetRandomSound(hitSounds);
+        if (hitSound != null)
+        {
+            EventManager.playSound.Invoke(hitSound);
         }
     }
 
@@ -67,6 +77,7 @@ public class Stone : MonoBehaviour, IHitable
 
     void Die()
     {
+        AudioClip deathSound = GetRandomSound(deathSounds);
         if(deathSound!= null)
         {
             EventManager.playSound.Invoke(deathSound);
@@ -74,6 +85,14 @@ public class Stone : MonoBehaviour, IHitable
         Parameters.money += bounty;
         EventManager.moneyChanged.Invoke();
         EventManager.stoneDestroyed.Invoke(this);
+
+
+        Instantiate(hitParticles, transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    AudioClip GetRandomSound(AudioClip[] clips)
+    {
+        return clips[Random.Range(0, clips.Length)];
     }
 }

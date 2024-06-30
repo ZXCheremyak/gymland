@@ -11,7 +11,11 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] AudioSource musicSource;
 
+    [SerializeField] AudioSource ambientSource;
+
     [SerializeField] AudioClip[] music;
+
+    [SerializeField] AudioClip ambient;
 
     void Awake()
     {
@@ -26,19 +30,20 @@ public class SoundManager : MonoBehaviour
         EventManager.playSound.AddListener(PlaySound);
         musicSource.volume = Parameters.musicVolume;
         sfxSource.volume = Parameters.sfxVolume;
+        ambientSource.volume = Parameters.sfxVolume;
     }
 
     void Update()
     {
         if (!musicSource.isPlaying)
         {
-            //ChangeMusic();
+            ChangeMusic();
         }
     }
 
     void ChangeMusic()
     {
-        AudioClip clipToPlay = music[Random.Range(1, music.Length)];
+        AudioClip clipToPlay = music[Random.Range(0, music.Length)];
         musicSource.clip = clipToPlay;
         musicSource.Play();
     }
@@ -53,6 +58,7 @@ public class SoundManager : MonoBehaviour
     public void ChangeSfxVolume(Slider slider)
     {
         sfxSource.volume = slider.value;
+        ambientSource.volume = slider.value;
         Parameters.sfxVolume = slider.value;
         Parameters.SaveData();
     }

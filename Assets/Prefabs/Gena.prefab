@@ -47,6 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerGrowth: 1
+  clips:
+  - {fileID: 8300000, guid: 257229995232f5343aa26f51e06268c3, type: 3}
+  - {fileID: 8300000, guid: 32babb1e45222154ba9877631a28bec8, type: 3}
+  - {fileID: 8300000, guid: dde77c4f26c87ab4f9c63ca1cf3df0d8, type: 3}
 --- !u!212 &2108347728868656198
 SpriteRenderer:
   m_ObjectHideFlags: 0

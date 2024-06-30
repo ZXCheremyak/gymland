@@ -69,11 +69,25 @@ public class IngameUI : MonoBehaviour
 
     void ChangeMoneyText()
     {
-        moneyText.text = "Money: " + Parameters.money.ToString();
+        moneyText.text = "Money: " + GetShortedNumber(Parameters.money);
     }
 
     void ChangePowerText()
     {
-        powerText.text = "Power: " + Parameters.power.ToString();
+        powerText.text = "Power: " + GetShortedNumber(Parameters.power);
+    }
+
+    string GetShortedNumber(int value)
+    {
+        string lettersAfterNumber = "";
+        float moneyValueForText = value;
+
+        while (moneyValueForText > 1000) 
+        {
+            moneyValueForText /= 1000;
+            lettersAfterNumber += "K";
+        }
+
+        return moneyValueForText.ToString("0.##") + lettersAfterNumber;
     }
 }

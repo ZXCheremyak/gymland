@@ -8,15 +8,11 @@ public class StoneSpawner : MonoBehaviour
 
     [SerializeField] GameObject[] stones;
 
-    [SerializeField] Transform parentPoint;
-
-    [SerializeField] int spawnRange;
-
     [SerializeField] int stoneHealthMultiplier;
 
     [SerializeField] float distance;
 
-    [SerializeField]List<Stone> spawnedStones = new List<Stone>();
+    [SerializeField] GameObject spawnedStone;
     void Awake()
     {
         instance = this;
@@ -24,35 +20,29 @@ public class StoneSpawner : MonoBehaviour
 
     void Start()
     {
-        RespawnAllStones();
+
+        RespawnStone();
     }
 
-    void RespawnAllStones()
+    void RespawnStone()
     {
-        foreach (var stone in spawnedStones)
-        {
-            if(stone != null) Destroy(stone.gameObject);
-        }
+        if (spawnedStone != null) return;
 
-        spawnedStones.Clear();
+        GameObject newStone = Instantiate(stones[Random.Range(0, stones.Length)], transform.position, Quaternion.identity);
 
-        for (int i = 0; i < 5; i++)
-        {
-            GameObject newStone = Instantiate(stones[Random.Range(0, stones.Length)], parentPoint.GetChild(i).position, Quaternion.identity);
+        newStone.GetComponent<Stone>().maxhp *= stoneHealthMultiplier;
 
-            newStone.GetComponent<Stone>().maxhp *= stoneHealthMultiplier;
+        newStone.GetComponent<Stone>().hp = newStone.GetComponent<Stone>().maxhp;
 
-            newStone.GetComponent<Stone>().hp = newStone.GetComponent<Stone>().maxhp;
-
-            spawnedStones.Add(newStone.GetComponent<Stone>());
-        }
+        spawnedStone = newStone;
+        
     }
 
     void OnTriggerExit2D(Collider2D coll)
     {
         if(coll.TryGetComponent<PlayerController>(out _))
         {
-            RespawnAllStones();
+            RespawnStone();
         }
     }
 

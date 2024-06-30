@@ -171,8 +171,13 @@ MonoBehaviour:
   maxhp: 20
   bounty: 1
   hpBarCanvas: {fileID: 7038405970433156307}
-  hitSound: {fileID: 8300000, guid: 257229995232f5343aa26f51e06268c3, type: 3}
-  deathSound: {fileID: 8300000, guid: 257229995232f5343aa26f51e06268c3, type: 3}
+  hitSounds:
+  - {fileID: 8300000, guid: 257229995232f5343aa26f51e06268c3, type: 3}
+  - {fileID: 8300000, guid: 32babb1e45222154ba9877631a28bec8, type: 3}
+  - {fileID: 8300000, guid: dde77c4f26c87ab4f9c63ca1cf3df0d8, type: 3}
+  deathSounds:
+  - {fileID: 8300000, guid: b297e769a9867c34593f778116628fec, type: 3}
+  hitParticles: {fileID: 8646539912712936551, guid: 5302835e5ab2db544ada5159db53d768, type: 3}
 --- !u!1 &3356572381918225991
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,7 +328,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7169812, g: 0.23335709, b: 0.23335709, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
