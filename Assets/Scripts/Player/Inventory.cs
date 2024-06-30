@@ -51,13 +51,7 @@ public class Inventory : MonoBehaviour
         inventroyCanvas = this.gameObject.GetComponent<Canvas>();
         inventroyCanvas.enabled = false;
 
-        ClearItemDetails();
-        for(int i = 0; i < 10; i++)
-        {
-            items.Add(new InventoryItem(1, "Panda", Resources.Load<Sprite>("Icons/22"), 3.5f, ItemType.Legendary, 0));
-            items.Add(new InventoryItem(2, "Dino", Resources.Load<Sprite>("Icons/image"), 2.0f, ItemType.Rare, 0));
-            items.Add(new InventoryItem(3, "Crow", Resources.Load<Sprite>("Icons/image"), 1.5f, ItemType.Common, 0));
-        }
+        ClearItemDetails(); 
 
         RefreshUI();
     }
@@ -270,7 +264,7 @@ public class Inventory : MonoBehaviour
             item.IsEquipped = true;
             Parameters.powerGrowthMultiplier += item.Bonus;
         }
-        equippedCount = 3;
+        equippedCount = bestItems.Count();
 
         RefreshUI();
 
