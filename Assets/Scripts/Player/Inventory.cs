@@ -272,6 +272,8 @@ public class Inventory : MonoBehaviour
             Parameters.powerGrowthMultiplier *= item.Bonus;
             equippedCount++;
         }
+        
+        equippedCount = bestItems.Count();
 
         RefreshUI();
 
