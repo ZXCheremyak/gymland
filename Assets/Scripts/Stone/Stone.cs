@@ -8,17 +8,32 @@ public class Stone : MonoBehaviour, IHitable
     public int maxhp;
     [SerializeField] int bounty;
 
-    [SerializeField] GameObject hpBar;
+    [SerializeField] GameObject hpBarCanvas;
 
     Vector2 startSize;
 
     [SerializeField] AudioClip hitSound;
     [SerializeField] AudioClip deathSound;
 
+    float hpBarVisibilityTime;
+
     void Start()
     {
         hp = maxhp;
-        startSize = hpBar.GetComponent<RectTransform>().sizeDelta;
+        startSize = hpBarCanvas.transform.GetChild(0).transform.GetChild(0).GetComponent<RectTransform>().sizeDelta;
+    }
+
+    void Update()
+    {
+        if (hpBarVisibilityTime <= 0)
+        {
+            if(hpBarCanvas.active)
+            {
+                hpBarCanvas.SetActive(false);
+            }
+            return;
+        }
+        hpBarVisibilityTime -= Time.deltaTime;
     }
 
     public void Hit(int damage)
@@ -34,6 +49,8 @@ public class Stone : MonoBehaviour, IHitable
         }
 
         hp -= damage;
+        hpBarVisibilityTime = 5f;
+        hpBarCanvas.SetActive(true);
         UpdateHpBar();
 
         if (hp <= 0)
@@ -44,7 +61,7 @@ public class Stone : MonoBehaviour, IHitable
 
     void UpdateHpBar()
     {
-        hpBar.GetComponent<RectTransform>().sizeDelta = new Vector2(startSize.x * (float)hp / (float)maxhp, startSize.y);
+        hpBarCanvas.transform.GetChild(0).transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(startSize.x * (float)hp / (float)maxhp, startSize.y);
 
     }
 
@@ -55,8 +72,8 @@ public class Stone : MonoBehaviour, IHitable
             EventManager.playSound.Invoke(deathSound);
         }
         Parameters.money += bounty;
-        EventManager.moneyChanged.Invoke(bounty);
-        EventManager.stoneDestroyed.Invoke();
+        EventManager.moneyChanged.Invoke();
+        EventManager.stoneDestroyed.Invoke(this);
         Destroy(gameObject);
     }
 }

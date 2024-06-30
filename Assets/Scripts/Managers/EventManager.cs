@@ -5,15 +5,13 @@ using UnityEngine.Events;
 
 public static class EventManager
 {
-    public static UnityEvent stoneDestroyed = new UnityEvent();
+    public static UnityEvent<Stone> stoneDestroyed = new UnityEvent<Stone>();
 
-    public static UnityEvent<int> moneyChanged = new UnityEvent<int>();
+    public static UnityEvent moneyChanged = new UnityEvent();
 
-    public static UnityEvent<int> powerChanged = new UnityEvent<int>();
+    public static UnityEvent powerChanged = new UnityEvent();
 
     public static UnityEvent<int> powerGrowthMultChanged = new UnityEvent<int>();
-
-    public static UnityEvent goToNextIsland = new UnityEvent();
 
     public static UnityEvent<AudioClip> playSound = new UnityEvent<AudioClip>();
 }

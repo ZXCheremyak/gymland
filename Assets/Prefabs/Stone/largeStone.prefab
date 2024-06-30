@@ -84,8 +84,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7924700001147762751}
-  - component: {fileID: 7570275160645290280}
   - component: {fileID: 8664113440510385619}
+  - component: {fileID: 4502528091960087017}
   m_Layer: 6
   m_Name: largeStone
   m_TagString: Untagged
@@ -110,25 +110,6 @@ Transform:
   - {fileID: 6738894439148612610}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7570275160645290280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1556271226927297715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7865df513e3c9404f94c1960f963ecf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 2000
-  maxhp: 2000
-  bounty: 5
-  hpBar: {fileID: 1356321536236040161}
-  hitSound: {fileID: 8300000, guid: 257229995232f5343aa26f51e06268c3, type: 3}
-  deathSound: {fileID: 8300000, guid: 257229995232f5343aa26f51e06268c3, type: 3}
-  largeStoneName: shluha
 --- !u!61 &8664113440510385619
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -174,6 +155,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4502528091960087017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556271226927297715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf4479b07afc6144fa2e6073b08aa7b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 2000
+  maxhp: 2000
+  bounty: 5
+  hpBarCanvas: {fileID: 7690695434648649401}
+  hitSound: {fileID: 8300000, guid: 257229995232f5343aa26f51e06268c3, type: 3}
+  deathSound: {fileID: 8300000, guid: 257229995232f5343aa26f51e06268c3, type: 3}
 --- !u!1 &3376403728104812303
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +267,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4191800009782283885
 RectTransform:
   m_ObjectHideFlags: 0

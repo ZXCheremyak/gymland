@@ -22,7 +22,9 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D rb;
 
-    bool canMove = true;
+    public bool canMove = true;
+
+    [SerializeField] GameObject damageNumbersPrefab;
 
     void Start()
     {
@@ -79,8 +81,10 @@ public class PlayerController : MonoBehaviour
             {
                 if(hitObject.TryGetComponent<IHitable>(out IHitable hitable))
                 {
+
+                    GameObject damageNumbers = Instantiate(damageNumbersPrefab, hitObject.transform.position, Quaternion.identity);
+
                     hitable.Hit(Parameters.power);
-                    Parameters.power += 1 * Parameters.powerGrowthMultiplier;
                     Debug.Log(Parameters.power);
                     Debug.Log("Hit");
                 }

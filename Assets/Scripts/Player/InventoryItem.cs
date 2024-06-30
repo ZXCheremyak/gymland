@@ -5,13 +5,13 @@ public enum ItemType { Common, Rare, Epic, Legendary }
 [System.Serializable]
 public class InventoryItem
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public Sprite Icon { get; set; }
-    public float Bonus { get; set; }
-    public ItemType Rarity { get; set; }
-    public int GradeLevel { get; set; }
-    public bool IsEquipped { get; set; }
+    public int Id;
+    public string Name;
+    public Sprite Icon;
+    public float Bonus;
+    public ItemType Rarity;
+    public int GradeLevel;
+    public bool IsEquipped;
 
     public InventoryItem(int id, string name, Sprite icon, float bonus, ItemType rarity, int gradeLevel)
     {

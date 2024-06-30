@@ -8,45 +8,56 @@ public class StoneSpawner : MonoBehaviour
 
     [SerializeField] GameObject[] stones;
 
+    [SerializeField] Transform parentPoint;
+
     [SerializeField] int spawnRange;
 
     [SerializeField] int stoneHealthMultiplier;
 
-    [SerializeField]List<Stone> spawnedStones = new List<Stone>();
+    [SerializeField] float distance;
 
+    [SerializeField]List<Stone> spawnedStones = new List<Stone>();
     void Awake()
     {
         instance = this;
-
-        EventManager.stoneDestroyed.AddListener(Spawn);
     }
 
     void Start()
     {
-        Spawn();
+        RespawnAllStones();
     }
 
-    void Spawn()
+    void RespawnAllStones()
     {
-        spawnedStones.TrimExcess();
+        foreach (var stone in spawnedStones)
+        {
+            if(stone != null) Destroy(stone.gameObject);
+        }
 
-        if (spawnedStones.Count > 4) return;
+        spawnedStones.Clear();
 
-        GameObject newStone = Instantiate(stones[Random.Range(0, stones.Length)], GetRandomSpawnPoint(), Quaternion.identity);
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject newStone = Instantiate(stones[Random.Range(0, stones.Length)], parentPoint.GetChild(i).position, Quaternion.identity);
 
-        newStone.GetComponent<Stone>().maxhp *= stoneHealthMultiplier;
+            newStone.GetComponent<Stone>().maxhp *= stoneHealthMultiplier;
 
-        newStone.GetComponent<Stone>().hp = newStone.GetComponent<Stone>().maxhp;
+            newStone.GetComponent<Stone>().hp = newStone.GetComponent<Stone>().maxhp;
 
-
-        spawnedStones.Add(newStone.GetComponent<Stone>());
-
-
-        if (spawnedStones.Count < 5) Spawn();
+            spawnedStones.Add(newStone.GetComponent<Stone>());
+        }
     }
 
-    Vector2 GetRandomSpawnPoint()
+    void OnTriggerExit2D(Collider2D coll)
     {
-        return new Vector2(transform.position.x + Random.Range(-1f, 1f), transform.position.y + Random.Range(-1f, 1f)) * spawnRange;
+        if(coll.TryGetComponent<PlayerController>(out _))
+        {
+            RespawnAllStones();
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, distance);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
@@ -10,14 +11,43 @@ public class Shop : MonoBehaviour
     public InventoryItem[] items;
     public InventoryItem[] rareItems;
     public InventoryItem[] epicItems;
-    public InventoryItem legendaryItem;
+    public InventoryItem[] legendaryItems;
+
+    [SerializeField] GameObject commonText;
+    [SerializeField] GameObject rareText;
+    [SerializeField] GameObject epicText;
+    [SerializeField] GameObject legendaryText;
 
     [SerializeField] int rollCost;
 
+    void Start()
+    {
+        SetSprites(items, commonText);
+        SetSprites(rareItems, rareText);
+        SetSprites(epicItems, epicText);
+        SetSprites(legendaryItems, legendaryText);
+
+        shopMenu.GetComponent<Canvas>().worldCamera = Camera.main;
+    }
+
+    void SetSprites(InventoryItem[] items, GameObject imageParent)
+    {
+        for(int i = 0; i < items.Length; i++)
+        {
+            imageParent.transform.GetChild(i).GetComponent<Image>().sprite = items[i].Icon;
+        }
+    }
+
     public void BuyItem()
     {
+        if (Parameters.money < rollCost) return;
         Parameters.money -= rollCost;
+
+        EventManager.moneyChanged.Invoke();
+        Inventory.instance.AddItem(GetRandomItem());
     }
+
+
 
     InventoryItem GetRandomItem()
     {
@@ -36,7 +66,7 @@ public class Shop : MonoBehaviour
         }
         if(randomValue == 99)
         {
-            return legendaryItem;
+            return legendaryItems[Random.Range(0, legendaryItems.Length)];
         }
 
         return null;
