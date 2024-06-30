@@ -6,7 +6,7 @@ public class Stone : MonoBehaviour, IHitable
 {
     public int hp;
     public int maxhp;
-    [SerializeField] int bounty;
+    [SerializeField] public int bounty;
 
     [SerializeField] GameObject hpBarCanvas;
 
@@ -18,8 +18,9 @@ public class Stone : MonoBehaviour, IHitable
 
     float hpBarVisibilityTime;
 
-    private DamageFlash damageFlash;
     [SerializeField] ParticleSystem hitParticles;
+
+    public GameObject spawner;
 
     void Start()
     {
@@ -97,5 +98,11 @@ public class Stone : MonoBehaviour, IHitable
     AudioClip GetRandomSound(AudioClip[] clips)
     {
         return clips[Random.Range(0, clips.Length)];
+    }
+
+    void OnDestroy()
+    {
+        if (spawner == null) return;
+        spawner.GetComponent<StoneSpawner>().RequestRespawn();
     }
 }

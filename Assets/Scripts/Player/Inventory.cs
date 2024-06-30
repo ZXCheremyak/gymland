@@ -52,12 +52,12 @@ public class Inventory : MonoBehaviour
         inventroyCanvas.enabled = false;
 
         ClearItemDetails();
-        for(int i = 0; i < 10; i++)
+        /*for(int i = 0; i < 10; i++)
         {
             items.Add(new InventoryItem(1, "Panda", Resources.Load<Sprite>("Icons/22"), 3.5f, ItemType.Legendary, 0));
             items.Add(new InventoryItem(2, "Dino", Resources.Load<Sprite>("Icons/image"), 2.0f, ItemType.Rare, 0));
             items.Add(new InventoryItem(3, "Crow", Resources.Load<Sprite>("Icons/image"), 1.5f, ItemType.Common, 0));
-        }
+        }*/
 
         RefreshUI();
     }
@@ -191,12 +191,12 @@ public class Inventory : MonoBehaviour
         if (item.IsEquipped)
         {
             equippedCount--;
-            Parameters.powerGrowthMultiplier -= item.Bonus;
+            Parameters.powerGrowthMultiplier /= item.Bonus;
         }
         else if (!item.IsEquipped && equippedCount < 3) 
         {
             equippedCount++;
-            Parameters.powerGrowthMultiplier += item.Bonus;
+            Parameters.powerGrowthMultiplier *= item.Bonus;
         }
         else return;
 
@@ -218,7 +218,7 @@ public class Inventory : MonoBehaviour
         if (item.IsEquipped)
         {
             equippedCount--;
-            Parameters.powerGrowthMultiplier -= item.Bonus;
+            Parameters.powerGrowthMultiplier /= item.Bonus;
         }
         RefreshUI();
         ClearItemDetails();
@@ -240,7 +240,7 @@ public class Inventory : MonoBehaviour
                     if (sameItems[i].IsEquipped)
                     {
                         equippedCount--;
-                        Parameters.powerGrowthMultiplier -= sameItems[i].Bonus;
+                        Parameters.powerGrowthMultiplier /= sameItems[i].Bonus;
                     }
                 }
 
@@ -263,14 +263,15 @@ public class Inventory : MonoBehaviour
         {
             item.IsEquipped = false;
             Parameters.powerGrowthMultiplier = 1f;
+            equippedCount = 0;
         }
 
         foreach (var item in bestItems)
         {
             item.IsEquipped = true;
-            Parameters.powerGrowthMultiplier += item.Bonus;
+            Parameters.powerGrowthMultiplier *= item.Bonus;
+            equippedCount++;
         }
-        equippedCount = 3;
 
         RefreshUI();
 

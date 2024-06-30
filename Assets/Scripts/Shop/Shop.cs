@@ -56,25 +56,28 @@ public class Shop : MonoBehaviour
 
     InventoryItem GetRandomItem()
     {
+        InventoryItem item = null;
         int randomValue = Random.Range(0, 100);
         if(randomValue < 60)
         {
-            return items[Random.Range(0, items.Length)];
+            item = items[Random.Range(0, items.Length)];
         }
         if(randomValue >= 60 && randomValue < 90)
         {
-            return rareItems[Random.Range(0, rareItems.Length)];
+            item = rareItems[Random.Range(0, rareItems.Length)];
         }
         if(randomValue >= 90 && randomValue < 99)
         {
-            return epicItems[Random.Range(0, epicItems.Length)];
+            item = epicItems[Random.Range(0, epicItems.Length)];
         }
         if(randomValue == 99)
         {
-            return legendaryItems[Random.Range(0, legendaryItems.Length)];
+            item = legendaryItems[Random.Range(0, legendaryItems.Length)];
         }
 
-        return null;
+        
+
+        return new InventoryItem(item.Id, item.Name, item.Icon, item.Bonus, item.Rarity, item.GradeLevel);
     }
 
     void OnTriggerStay2D(Collider2D coll)

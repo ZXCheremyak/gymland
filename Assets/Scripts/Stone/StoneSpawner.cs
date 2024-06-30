@@ -6,9 +6,11 @@ public class StoneSpawner : MonoBehaviour
 {
     public static StoneSpawner instance;
 
-    [SerializeField] GameObject[] stones;
+    [SerializeField] GameObject stone;
 
     [SerializeField] int stoneHealthMultiplier;
+
+    [SerializeField] int bountyMultiplier;
 
     [SerializeField] float distance;
 
@@ -28,11 +30,15 @@ public class StoneSpawner : MonoBehaviour
     {
         if (spawnedStone != null) return;
 
-        GameObject newStone = Instantiate(stones[Random.Range(0, stones.Length)], transform.position, Quaternion.identity);
+        GameObject newStone = Instantiate(stone, transform.position, Quaternion.identity);
 
         newStone.GetComponent<Stone>().maxhp *= stoneHealthMultiplier;
 
+        newStone.GetComponent<Stone>().bounty *= bountyMultiplier;
+
         newStone.GetComponent<Stone>().hp = newStone.GetComponent<Stone>().maxhp;
+
+        newStone.GetComponent<Stone>().spawner = gameObject;
 
         spawnedStone = newStone;
         
@@ -42,12 +48,17 @@ public class StoneSpawner : MonoBehaviour
     {
         if(coll.TryGetComponent<PlayerController>(out _))
         {
-            RespawnStone();
+            //RespawnStone();
         }
     }
 
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, distance);
+    }
+
+    public void RequestRespawn()
+    {
+        Invoke("RespawnStone", 3f);
     }
 }

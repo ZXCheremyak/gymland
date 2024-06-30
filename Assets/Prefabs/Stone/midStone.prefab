@@ -150,12 +150,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 750
-  maxhp: 750
-  bounty: 3
+  maxhp: 1000
+  bounty: 5
   hpBarCanvas: {fileID: 1270687684849809901}
-  hitSound: {fileID: 8300000, guid: 257229995232f5343aa26f51e06268c3, type: 3}
-  deathSound: {fileID: 8300000, guid: 257229995232f5343aa26f51e06268c3, type: 3}
+  hitSounds:
+  - {fileID: 8300000, guid: 257229995232f5343aa26f51e06268c3, type: 3}
+  - {fileID: 8300000, guid: dde77c4f26c87ab4f9c63ca1cf3df0d8, type: 3}
+  - {fileID: 8300000, guid: 32babb1e45222154ba9877631a28bec8, type: 3}
+  deathSounds:
+  - {fileID: 8300000, guid: b297e769a9867c34593f778116628fec, type: 3}
   damageFlash: {fileID: 3096522061737206689}
+  hitParticles: {fileID: 8646539912712936551, guid: 5302835e5ab2db544ada5159db53d768, type: 3}
+  spawner: {fileID: 0}
 --- !u!70 &5861691856165338532
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
