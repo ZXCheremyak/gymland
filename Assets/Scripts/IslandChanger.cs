@@ -6,22 +6,16 @@ public class IslandChanger : MonoBehaviour
 {
     [SerializeField] Transform newPosition;
     [SerializeField] int powerRequirement;
+    PlayerController player;
 
     void Start()
     {
-
+        player = GameObject.FindObjectOfType<PlayerController>();
     }
 
-    public void TravelToIsland(PlayerController player)
+    public void TravelToIsland()
     {
-        player.transform.position = newPosition.position;
-    }
-
-    void OnTriggerEnter2D(Collider2D coll)
-    {
-        if(coll.TryGetComponent<PlayerController>(out PlayerController player))
-        {
-            if(Parameters.power >= powerRequirement) TravelToIsland(player);
-        }
+        if (Parameters.power >= powerRequirement)
+            player.transform.position = newPosition.position;
     }
 }
