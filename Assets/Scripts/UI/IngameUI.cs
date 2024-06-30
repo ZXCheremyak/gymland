@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class IngameUI : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI moneyText, powerText;
     bool menuIsActive;
+    bool settingsMenuIsActive;
 
-    GameObject menu;
+    [SerializeField] GameObject menu;
+    [SerializeField] GameObject settingsMenu;
 
     void Start()
     {
@@ -20,7 +23,10 @@ public class IngameUI : MonoBehaviour
 
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleMenu();
+        }
     }
 
     void ToggleMenu()
@@ -29,27 +35,36 @@ public class IngameUI : MonoBehaviour
         {
             menuIsActive = !menuIsActive;
             menu.SetActive(false);
+            Time.timeScale = 1;
+            if(settingsMenuIsActive)
+            {
+                settingsMenu.SetActive(false);
+                settingsMenuIsActive = false;
+            }
         }
         else
         {
             menuIsActive = !menuIsActive;
             menu.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
-    void ExitToMainMenu()
+    public void ExitToMainMenu()
     {
-
+        SceneManager.LoadScene("MainMenu");
     }
 
-    void Resume()
+    public void Resume()
     {
-
+        ToggleMenu();
     }
 
-    void Settings()
+    public void ShowSettings()
     {
-
+        menu.SetActive(false);
+        settingsMenu.SetActive(true);
+        settingsMenuIsActive = true;
     }
 
     void ChangeMoneyText()

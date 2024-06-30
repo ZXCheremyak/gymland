@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
-    float sfxVolume = 1;
-    float musicVolume = 1;
+    public static SoundManager instance;
 
     [SerializeField] AudioSource sfxSource;
 
@@ -14,12 +13,17 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] AudioClip[] music;
 
+    void Awake()
+    {
+        instance = this;
+    }
+
+
     void Start()
     {
-        sfxSource.volume = sfxVolume;
-        musicSource.volume = musicVolume;
-
         EventManager.playSound.AddListener(PlaySound);
+        musicSource.volume = Parameters.musicVolume;
+        sfxSource.volume = Parameters.sfxVolume;
     }
 
     void Update()
@@ -32,7 +36,7 @@ public class SoundManager : MonoBehaviour
 
     void ChangeMusic()
     {
-        AudioClip clipToPlay = music[Random.Range(0, music.Length)];
+        AudioClip clipToPlay = music[Random.Range(1, music.Length)];
         musicSource.clip = clipToPlay;
         musicSource.Play();
     }
