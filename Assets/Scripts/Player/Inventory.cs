@@ -6,6 +6,8 @@ using TMPro;
 
 public class Inventory : MonoBehaviour
 {
+    public static Inventory instance;
+
     private List<InventoryItem> items;
     [SerializeField] Transform itemContainer;
     [SerializeField] GameObject itemPrefab;
@@ -35,6 +37,12 @@ public class Inventory : MonoBehaviour
     private bool helpIsOpened = false;
     private Canvas inventroyCanvas;
     private List<InventoryItem> selectedItemsForDeletion = new List<InventoryItem>();
+
+    void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
         items = new List<InventoryItem>();
@@ -177,9 +185,17 @@ public class Inventory : MonoBehaviour
 
     public void EquipItem(InventoryItem item, ItemUI itemUI)
     {
-            if(item.IsEquipped) equippedCount--;
-            else if(!item.IsEquipped && equippedCount < 3) equippedCount++;
-            else return;
+        if (item.IsEquipped)
+        {
+            equippedCount--;
+            Parameters.powerGrowthMultiplier -= item.Bonus;
+        }
+        else if (!item.IsEquipped && equippedCount < 3) 
+        {
+            equippedCount++;
+            Parameters.powerGrowthMultiplier += item.Bonus;
+        }
+        else return;
 
             item.IsEquipped = !item.IsEquipped;
             
@@ -195,7 +211,11 @@ public class Inventory : MonoBehaviour
     public void DeleteItem(InventoryItem item)
     {
         items.Remove(item);
-        if(item.IsEquipped) equippedCount--;
+        if (item.IsEquipped)
+        {
+            equippedCount--;
+            Parameters.powerGrowthMultiplier -= item.Bonus;
+        }
         RefreshUI();
         ClearItemDetails();
 
@@ -213,7 +233,11 @@ public class Inventory : MonoBehaviour
                 for (int i = 0; i < 3; i++)
                 {
                     items.Remove(sameItems[i]);
-                    if(sameItems[i].IsEquipped) equippedCount--;
+                    if (sameItems[i].IsEquipped)
+                    {
+                        equippedCount--;
+                        Parameters.powerGrowthMultiplier -= sameItems[i].Bonus;
+                    }
                 }
 
                 InventoryItem upgradedItem = new InventoryItem(selectedItem.Id * 10, selectedItem.Name, selectedItem.Icon, selectedItem.Bonus * 2, selectedItem.Rarity, selectedItem.GradeLevel + 1);
@@ -234,11 +258,13 @@ public class Inventory : MonoBehaviour
         foreach (var item in items)
         {
             item.IsEquipped = false;
+            Parameters.powerGrowthMultiplier = 1f;
         }
 
         foreach (var item in bestItems)
         {
             item.IsEquipped = true;
+            Parameters.powerGrowthMultiplier += item.Bonus;
         }
         equippedCount = 3;
 
