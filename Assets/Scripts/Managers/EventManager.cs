@@ -15,4 +15,5 @@ public static class EventManager
 
     public static UnityEvent goToNextIsland = new UnityEvent();
 
+    public static UnityEvent<AudioClip> playSound = new UnityEvent<AudioClip>();
 }

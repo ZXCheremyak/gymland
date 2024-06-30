@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D rb;
 
+    bool canMove = true;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,12 +31,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (!canMove) return;
+
         moveX = Input.GetAxisRaw("Horizontal");
         moveY = Input.GetAxisRaw("Vertical");
 
         moveDirection = new Vector2(moveX, moveY).normalized;
-        
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+
+        rb.velocity = moveDirection * moveSpeed;
 
         FlipRotation(moveDirection);
         playerPosition = new Vector2(transform.position.x + flipModificator, transform.position.y);
@@ -70,8 +74,17 @@ public class PlayerController : MonoBehaviour
 
         if(hitObjects != null)
         {
-            //hitObjects.ToList().ForEach(obj => obj.GetComponent<ТутачкиКомпонентСХитЛогикой>().Hit());
-            // просто выебываюсь, сэкономил три строчки
+            //hitObjects.ToList().ForEach(obj => obj.GetComponent<IHitable>().Hit(Parameters.power));
+            foreach(Collider2D hitObject in hitObjects)
+            {
+                if(hitObject.TryGetComponent<IHitable>(out IHitable hitable))
+                {
+                    hitable.Hit(Parameters.power);
+                    Parameters.power += 1 * Parameters.powerGrowthMultiplier;
+                    Debug.Log(Parameters.power);
+                    Debug.Log("Hit");
+                }
+            }
         }
     }
 

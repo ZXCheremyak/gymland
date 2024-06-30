@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class midStone : MonoBehaviour
+public class midStone : Stone
 {
-    public static string midStoneName;
+    public string midStoneName;
 }

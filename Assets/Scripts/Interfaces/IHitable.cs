@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class largeStone : Stone
+public interface IHitable
 {
-    public string largeStoneName;
+    public void Hit(int damage);
 }

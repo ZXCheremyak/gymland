@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class smallStone : Stone
 {
-    public static string smallStoneName;
+    public string smallStoneName;
 }
