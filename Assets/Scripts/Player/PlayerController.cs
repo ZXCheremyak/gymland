@@ -19,8 +19,11 @@ public class PlayerController : MonoBehaviour
     float flipModificator = 1f;
 
     Vector2 moveDirection;
+    bool leftHand = true;
 
     Rigidbody2D rb;
+    Animator animator;
+    SpriteRenderer sr;
 
     public bool canMove = true;
 
@@ -29,6 +32,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -51,8 +56,13 @@ public class PlayerController : MonoBehaviour
 			{
 				Attack();
 				nextAttackTime = Time.time + 1f / attackRate;
+                animator.SetBool("LeftHand", leftHand);
+                animator.SetTrigger("Attack");
+                leftHand = !leftHand;
 			}
 		}
+        animator.SetFloat("Speed", moveDirection.sqrMagnitude);
+
     }
 
     void FlipRotation(Vector2 direction)
@@ -61,12 +71,14 @@ public class PlayerController : MonoBehaviour
         {
             //смотрит вправо
             flipModificator = 1f;
+            sr.flipX = false;
         }
 
         if(direction.x < 0)
         {
             //смотрим влево
             flipModificator = -1f;
+            sr.flipX = true;
         }
     }
 

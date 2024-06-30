@@ -21,6 +21,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] TextMeshProUGUI selectedItemRarity;
     [SerializeField] TextMeshProUGUI newItemName;
     [SerializeField] TextMeshProUGUI equippedCountText;
+    [SerializeField] TextMeshProUGUI multiplierText;
     [SerializeField] Image newItemIcon;
     [SerializeField] TextMeshProUGUI newItemBonus;
     [SerializeField] TextMeshProUGUI newItemRarity;
@@ -63,7 +64,7 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        if(Input.GetKeyDown(KeyCode.Tab))
         {
             ToggleInventory();
         }
@@ -119,6 +120,7 @@ public class Inventory : MonoBehaviour
         }
 
         equippedCountText.text = "Equiped:  " + equippedCount + "  /  3";
+        multiplierText.text = "Multiplier:  " + Parameters.powerGrowthMultiplier + "x";
     }
 
     public void ShowItemDetails(InventoryItem item, ItemUI itemUI)
@@ -175,6 +177,7 @@ public class Inventory : MonoBehaviour
         selectedItemDetails.SetActive(true);
 
         equippedCountText.text = "Equiped:   " + equippedCount + "  /  3";
+        multiplierText.text = "Multiplier:  " + Parameters.powerGrowthMultiplier + "x";
     }
 
     void UpdateCombineRequirements(InventoryItem item)
@@ -206,6 +209,7 @@ public class Inventory : MonoBehaviour
             selectedItemUI = itemUI;
 
             equippedCountText.text = "Equiped:   " + equippedCount + "  /  3";
+            multiplierText.text = "Multiplier:  " + Parameters.powerGrowthMultiplier + "x";
     }
 
     public void DeleteItem(InventoryItem item)

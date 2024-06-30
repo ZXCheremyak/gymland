@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,8 @@ public class Shop : MonoBehaviour
     [SerializeField] GameObject epicText;
     [SerializeField] GameObject legendaryText;
 
+    [SerializeField] TextMeshProUGUI priceText;
+
     [SerializeField] int rollCost;
 
     void Start()
@@ -28,6 +31,8 @@ public class Shop : MonoBehaviour
         SetSprites(legendaryItems, legendaryText);
 
         shopMenu.GetComponent<Canvas>().worldCamera = Camera.main;
+
+        priceText.text = "Price:  " + rollCost.ToString() + "$";
     }
 
     void SetSprites(InventoryItem[] items, GameObject imageParent)
