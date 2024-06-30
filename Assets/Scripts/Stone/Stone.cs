@@ -14,6 +14,7 @@ public class Stone : MonoBehaviour, IHitable
 
     [SerializeField] AudioClip hitSound;
     [SerializeField] AudioClip deathSound;
+    [SerializeField] DamageFlash damageFlash;
 
     float hpBarVisibilityTime;
 
@@ -52,6 +53,8 @@ public class Stone : MonoBehaviour, IHitable
         hpBarVisibilityTime = 5f;
         hpBarCanvas.SetActive(true);
         UpdateHpBar();
+
+        damageFlash.CallDamageFlash();
 
         if (hp <= 0)
         {

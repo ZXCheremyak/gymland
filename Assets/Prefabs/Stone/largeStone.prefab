@@ -173,6 +173,7 @@ MonoBehaviour:
   hpBarCanvas: {fileID: 7690695434648649401}
   hitSound: {fileID: 8300000, guid: 257229995232f5343aa26f51e06268c3, type: 3}
   deathSound: {fileID: 8300000, guid: 257229995232f5343aa26f51e06268c3, type: 3}
+  damageFlash: {fileID: 2408591372424011931}
 --- !u!1 &3376403728104812303
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +201,7 @@ RectTransform:
   m_GameObject: {fileID: 3376403728104812303}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.5839, y: 2.5839, z: 2.5839}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1622259319731995657}
@@ -285,7 +286,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1.118}
+  m_AnchoredPosition: {x: 0, y: 1.5}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7259133455463687154
@@ -361,6 +362,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6738894439148612610}
   - component: {fileID: 6966577930494104286}
+  - component: {fileID: 2408591372424011931}
+  - component: {fileID: 5945137973003717360}
   m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
@@ -403,7 +406,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 6865b9532c0652542954d28debfe64aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -435,3 +438,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2408591372424011931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9199442544350763807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f54b38d307580c847a966aad93341775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _flashColor: {r: 1, g: 1, b: 1, a: 1}
+  _flashTime: 0.15
+--- !u!114 &5945137973003717360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9199442544350763807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000956178e453c3f922
+  m_ShapePath:
+  - {x: -0.99636114, y: -0.89623463, z: 0}
+  - {x: -1.4409094, y: -0.7298788, z: 0}
+  - {x: -1.188323, y: 0.22846374, z: 0}
+  - {x: -0.7883488, y: 1.0522436, z: 0}
+  - {x: 0.39405665, y: 0.9639362, z: 0}
+  - {x: 0.8254938, y: 0.48021007, z: 0}
+  - {x: 1.5009797, y: -0.34357026, z: 0}
+  - {x: 1.5089628, y: -1.0968179, z: 0}
+  - {x: 0.059751064, y: -1.0864712, z: 0}
+  m_ShapePathHash: -692463883
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -321970
+  m_LocalBounds:
+    m_Center: {x: 0.034026623, y: -0.02228713, z: 0}
+    m_Extent: {x: 1.474936, y: 1.0745307, z: 0}

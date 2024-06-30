@@ -69,11 +69,11 @@ public class IngameUI : MonoBehaviour
 
     void ChangeMoneyText()
     {
-        moneyText.text = "Money: " + Parameters.money.ToString();
+        moneyText.text = Parameters.money.ToString();
     }
 
     void ChangePowerText()
     {
-        powerText.text = "Power: " + Parameters.power.ToString();
+        powerText.text = Parameters.power.ToString();
     }
 }
