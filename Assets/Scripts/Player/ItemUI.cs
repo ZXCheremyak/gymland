@@ -10,29 +10,50 @@ public class ItemUI : MonoBehaviour
     private Inventory inventoryManager;
     private bool isSelectedForDeletion;
 
+    [SerializeField] GameObject selectionFrame;
+    [SerializeField] GameObject equippedMarker;
+    [SerializeField] GameObject firstStar;
+    [SerializeField] GameObject secondStar;
+    [SerializeField] GameObject thirdStar;
+
     public void Setup(InventoryItem newItem, Inventory manager)
     {
         item = newItem;
         inventoryManager = manager;
+
         icon.sprite = item.Icon;
-        GetComponent<Button>().onClick.AddListener(() => OnItemClick());
+        equippedMarker.SetActive(newItem.IsEquipped);
+
+        switch(item.GradeLevel)
+        {
+            case(1):
+                firstStar.SetActive(true);
+                break;
+            case(2):
+                firstStar.SetActive(true);
+                secondStar.SetActive(true);
+                break;
+            case(3):
+                firstStar.SetActive(true);
+                secondStar.SetActive(true);
+                thirdStar.SetActive(true);
+                break;
+        }
+
+        GetComponent<Button>().onClick.RemoveAllListeners();
+        GetComponent<Button>().onClick.AddListener(() => OnItemClick(item));
     }
-    private void OnItemClick()
+    private void OnItemClick(InventoryItem _item)
     {
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-        {
-            ToggleSelectionForDeletion();
-        }
-        else
-        {
-            inventoryManager.ShowItemDetails(item);
-        }
+            inventoryManager.ShowItemDetails(_item, GetComponent<ItemUI>());
+    }
+    public void SetSelected(bool isSelected)
+    {
+        selectionFrame.SetActive(isSelected);
     }
 
-    private void ToggleSelectionForDeletion()
+    public void SetEquiped(bool isEquiped)
     {
-        isSelectedForDeletion = !isSelectedForDeletion;
-        GetComponent<Image>().color = isSelectedForDeletion ? Color.red : Color.white;
-        inventoryManager.SelectItemForDeletion(item);
+        equippedMarker.SetActive(isEquiped);
     }
 }
