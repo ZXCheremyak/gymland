@@ -21,6 +21,8 @@ public class SoundManager : MonoBehaviour
 
     void Start()
     {
+        Parameters.LoadData();
+        Debug.Log(PlayerPrefs.GetFloat("sfxVolume") + " / " + PlayerPrefs.GetFloat("musicVolume"));
         EventManager.playSound.AddListener(PlaySound);
         musicSource.volume = Parameters.musicVolume;
         sfxSource.volume = Parameters.sfxVolume;
@@ -44,11 +46,15 @@ public class SoundManager : MonoBehaviour
     public void ChangeMusicVolume(Slider slider)
     {
         musicSource.volume = slider.value;
+        Parameters.musicVolume = slider.value;
+        Parameters.SaveData();
     }
 
     public void ChangeSfxVolume(Slider slider)
     {
         sfxSource.volume = slider.value;
+        Parameters.sfxVolume = slider.value;
+        Parameters.SaveData();
     }
 
     void PlaySound(AudioClip clip)

@@ -2893,6 +2893,8 @@ MonoBehaviour:
   menu: {fileID: 1926237051}
   musicVolume: {fileID: 320638173}
   sfxVolume: {fileID: 1747583065}
+  musicSlider: {fileID: 538987445}
+  sfxSlider: {fileID: 2063073963}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

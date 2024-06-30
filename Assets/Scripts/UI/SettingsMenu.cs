@@ -8,11 +8,15 @@ public class SettingsMenu : MonoBehaviour
 {
     [SerializeField] GameObject menu;
     [SerializeField] TextMeshProUGUI musicVolume, sfxVolume;
+    [SerializeField] Slider musicSlider, sfxSlider;
 
     void Start()
     {
-        musicVolume.text = "music: " + (Parameters.musicVolume*100).ToString("0");
-        sfxVolume.text = "sound: " + (Parameters.sfxVolume*100).ToString("0");
+        Parameters.LoadData();
+        musicVolume.text = "music: " + (Parameters.musicVolume*100).ToString("0.");
+        sfxVolume.text = "sound: " + (Parameters.sfxVolume*100).ToString("0.");
+        musicSlider.value = Parameters.musicVolume;
+        sfxSlider.value = Parameters.sfxVolume;
     }
 
     public void CloseSettings()
